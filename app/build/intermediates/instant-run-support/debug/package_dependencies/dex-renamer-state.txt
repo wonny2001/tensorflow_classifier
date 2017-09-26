@@ -1,0 +1,4 @@
+#Tue Sep 26 16:51:04 KST 2017
+base.0=/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7e6f58e6b4ac9f82a677c943becde3d88df682d1
+renamed.0=classes.dex
+file.0=/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7e6f58e6b4ac9f82a677c943becde3d88df682d1/classes.dex

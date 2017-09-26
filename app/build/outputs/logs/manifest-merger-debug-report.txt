@@ -1,0 +1,74 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:18:1-42:12
+	package
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:19:5-34
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:18:11-69
+	android:versionCode
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.CAMERA
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:21:5-65
+	android:name
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:21:22-62
+uses-feature#android.hardware.camera
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:22:5-60
+	android:name
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:22:19-57
+uses-feature#android.hardware.camera.autofocus
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:23:5-70
+	android:name
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:23:19-67
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:24:5-80
+	android:name
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:24:22-78
+application
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:26:5-40:19
+MERGED from [org.tensorflow:tensorflow-android:1.2.0] /home/rainman/.android/build-cache/45c2b0017cdafcd2ede1a7c11c1c8d58eecae548/output/AndroidManifest.xml:5:5-6:19
+	android:label
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:28:9-41
+	android:debuggable
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:27:9-34
+	android:allowBackup
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:26:18-44
+	android:icon
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:29:9-45
+	android:theme
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:30:9-45
+activity#org.tensorflow.demo.ClassifierActivity
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:32:9-39:20
+	android:screenOrientation
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:33:19-55
+	android:label
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:34:19-71
+	android:name
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:32:19-72
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:35:13-38:29
+action#android.intent.action.MAIN
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:36:17-69
+	android:name
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:36:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:37:17-77
+	android:name
+		ADDED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:37:27-74
+uses-sdk
+INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+	android:targetSdkVersion
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.READ_PHONE_STATE
+IMPLIED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:18:1-42:12 reason: tensorflow.contrib.android has a targetSdkVersion < 4
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from /home/rainman/src_android/tensorflow-classifier-android/app/src/main/AndroidManifest.xml:18:1-42:12 reason: tensorflow.contrib.android requested WRITE_EXTERNAL_STORAGE

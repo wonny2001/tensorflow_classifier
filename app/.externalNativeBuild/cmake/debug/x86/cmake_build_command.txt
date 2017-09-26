@@ -1,0 +1,15 @@
+Executable : /home/rainman/Android/Sdk/cmake/3.6.4111459/bin/cmake
+arguments : 
+-H/home/rainman/src_android/tensorflow-classifier-android/app
+-B/home/rainman/src_android/tensorflow-classifier-android/app/.externalNativeBuild/cmake/debug/x86
+-GAndroid Gradle - Ninja
+-DANDROID_ABI=x86
+-DANDROID_NDK=/home/rainman/Android/Sdk/ndk-bundle
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/cmake/debug/obj/x86
+-DCMAKE_BUILD_TYPE=Debug
+-DCMAKE_MAKE_PROGRAM=/home/rainman/Android/Sdk/cmake/3.6.4111459/bin/ninja
+-DCMAKE_TOOLCHAIN_FILE=/home/rainman/Android/Sdk/ndk-bundle/build/cmake/android.toolchain.cmake
+-DANDROID_PLATFORM=android-21
+-DCMAKE_CXX_FLAGS=
+jvmArgs : 
+

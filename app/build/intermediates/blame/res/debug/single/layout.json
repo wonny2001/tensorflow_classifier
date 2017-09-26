@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/res/merged/debug/layout/activity_camera.xml",
+        "source": "/home/rainman/src_android/tensorflow-classifier-android/app/src/main/res/layout/activity_camera.xml"
+    },
+    {
+        "merged": "/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/res/merged/debug/layout/camera_connection_fragment_stylize.xml",
+        "source": "/home/rainman/src_android/tensorflow-classifier-android/app/src/main/res/layout/camera_connection_fragment_stylize.xml"
+    },
+    {
+        "merged": "/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/res/merged/debug/layout/camera_connection_fragment.xml",
+        "source": "/home/rainman/src_android/tensorflow-classifier-android/app/src/main/res/layout/camera_connection_fragment.xml"
+    },
+    {
+        "merged": "/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/res/merged/debug/layout/camera_connection_fragment_tracking.xml",
+        "source": "/home/rainman/src_android/tensorflow-classifier-android/app/src/main/res/layout/camera_connection_fragment_tracking.xml"
+    }
+]

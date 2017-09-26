@@ -1,0 +1,7 @@
+#Tue Sep 26 16:53:56 KST 2017
+base.0=/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_481a3b5fd92c3447c25cda09d4657943f4e51b15
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_8c692d14db4dcb5384f5e60a8a9f5129c4fa85db/classes.dex
+base.1=/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_8c692d14db4dcb5384f5e60a8a9f5129c4fa85db
+file.0=/home/rainman/src_android/tensorflow-classifier-android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_481a3b5fd92c3447c25cda09d4657943f4e51b15/classes.dex
