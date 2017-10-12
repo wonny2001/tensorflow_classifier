@@ -237,7 +237,8 @@ public class CameraConnectionFragment extends Fragment {
     this.imageListener = imageListener;
     this.layout = layout;
     this.inputSize = inputSize;
-    this.mSelectedCameraId = selectedCameraId;
+//    this.mSelectedCameraId = selectedCameraId;
+    this.mSelectedCameraId = 1;
   }
 
   /**
@@ -313,7 +314,7 @@ public class CameraConnectionFragment extends Fragment {
       final OnImageAvailableListener imageListener,
       final int layout,
       final Size inputSize, final int selectedCameraId) {
-    return new CameraConnectionFragment(callback, imageListener, layout, inputSize, selectedCameraId);
+    return new CameraConnectionFragment(callback, imageListener, layout, inputSize, 1);
   }
 
   @Override
@@ -325,22 +326,6 @@ public class CameraConnectionFragment extends Fragment {
   @Override
   public void onViewCreated(final View view, final Bundle savedInstanceState) {
     textureView = (AutoFitTextureView) view.findViewById(R.id.texture);
-  }
-
-  @Override
-  public void onActivityCreated(final Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    startBackgroundThread();
-
-    // When the screen is turned off and turned back on, the SurfaceTexture is already
-    // available, and "onSurfaceTextureAvailable" will not be called. In that case, we can open
-    // a camera and start preview from here (otherwise, we wait until the surface is ready in
-    // the SurfaceTextureListener).
     if (textureView.isAvailable()) {
       openCamera(textureView.getWidth(), textureView.getHeight());
     } else {
@@ -349,9 +334,49 @@ public class CameraConnectionFragment extends Fragment {
   }
 
   @Override
+  public void onActivityCreated(final Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+  }
+
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    startBackgroundThread();
+
+    // When the screen is turned off and turned back on, the SurfaceTexture is already
+    // available, and "onSurfaceTextureAvailable" will not be called. In that case, we can open
+    // a camera and start preview from here (otherwise, we wait until the surface is ready in
+    // the SurfaceTextureListener).
+
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+        closeCamera();
+        stopBackgroundThread();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+//    startBackgroundThread();
+//
+//    // When the screen is turned off and turned back on, the SurfaceTexture is already
+//    // available, and "onSurfaceTextureAvailable" will not be called. In that case, we can open
+//    // a camera and start preview from here (otherwise, we wait until the surface is ready in
+//    // the SurfaceTextureListener).
+//    if (textureView.isAvailable()) {
+//      openCamera(textureView.getWidth(), textureView.getHeight());
+//    } else {
+//      textureView.setSurfaceTextureListener(surfaceTextureListener);
+//    }
+  }
+
+  @Override
   public void onPause() {
-    closeCamera();
-    stopBackgroundThread();
+//    closeCamera();
+//    stopBackgroundThread();
     super.onPause();
   }
 
@@ -366,7 +391,7 @@ public class CameraConnectionFragment extends Fragment {
     final CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
     try {
 //      for (final String cameraId : manager.getCameraIdList())
-      final String cameraId = manager.getCameraIdList()[mSelectedCameraId];
+      final String cameraId = "1";//manager.getCameraIdList()[mSelectedCameraId];
       {
         final CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
 
@@ -409,7 +434,7 @@ public class CameraConnectionFragment extends Fragment {
         }
 
         CameraConnectionFragment.this.cameraId = cameraId;
-        CameraConnectionFragment.this.mSelectedCameraId = 0;
+        CameraConnectionFragment.this.mSelectedCameraId = 1;
       }
     } catch (final CameraAccessException e) {
       LOGGER.e(e, "Exception!");

@@ -19,6 +19,7 @@ package org.tensorflow.demo;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.Image.Plane;
 import android.media.ImageReader.OnImageAvailableListener;
@@ -77,17 +78,19 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
       }
     });
 
+    Intent intent = new Intent(getApplicationContext(), TopCheckService.class);
+    startService(intent);
 
-    if (hasPermission()) {
-      setFragment();
-    } else {
-      requestPermission();
-    }
   }
 
   @Override
   public synchronized void onStart() {
     LOGGER.d("onStart " + this);
+    if (hasPermission()) {
+      setFragment();
+    } else {
+      requestPermission();
+    }
     super.onStart();
   }
 
@@ -96,28 +99,30 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
     LOGGER.d("onResume " + this);
     super.onResume();
 
-    handlerThread = new HandlerThread("inference");
-    handlerThread.start();
-    handler = new Handler(handlerThread.getLooper());
+    if(handlerThread == null) {
+      handlerThread = new HandlerThread("inference");
+      handlerThread.start();
+      handler = new Handler(handlerThread.getLooper());
+    }
   }
 
   @Override
   public synchronized void onPause() {
     LOGGER.d("onPause " + this);
 
-    if (!isFinishing()) {
-      LOGGER.d("Requesting finish");
-      finish();
-    }
+//    if (!isFinishing()) {
+//      LOGGER.d("Requesting finish");
+//      finish();
+//    }
 
-    handlerThread.quitSafely();
-    try {
-      handlerThread.join();
-      handlerThread = null;
-      handler = null;
-    } catch (final InterruptedException e) {
-      LOGGER.e(e, "Exception!");
-    }
+//    handlerThread.quitSafely();
+//    try {
+//      handlerThread.join();
+//      handlerThread = null;
+//      handler = null;
+//    } catch (final InterruptedException e) {
+//      LOGGER.e(e, "Exception!");
+//    }
 
     super.onPause();
   }
@@ -131,6 +136,18 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
   @Override
   public synchronized void onDestroy() {
     LOGGER.d("onDestroy " + this);
+
+    if (handlerThread != null) {
+      handlerThread.quitSafely();
+      try {
+        handlerThread.join();
+        handlerThread = null;
+        handler = null;
+      } catch (final InterruptedException e) {
+        LOGGER.e(e, "Exception!");
+      }
+    }
+
     super.onDestroy();
   }
 
@@ -174,6 +191,7 @@ public abstract class CameraActivity extends Activity implements OnImageAvailabl
   }
 
   protected void setFragment() {
+    LOGGER.d("setFragment " + this);
     final Fragment fragment =
         CameraConnectionFragment.newInstance(
             new CameraConnectionFragment.ConnectionCallback() {

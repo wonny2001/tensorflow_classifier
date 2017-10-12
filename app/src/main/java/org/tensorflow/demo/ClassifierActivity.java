@@ -16,6 +16,11 @@
 
 package org.tensorflow.demo;
 
+import android.app.ActivityManager;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -27,6 +32,9 @@ import android.media.Image.Plane;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.media.MediaScannerConnection;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.PersistableBundle;
 import android.os.SystemClock;
 import android.os.Trace;
 import android.util.Log;
@@ -39,15 +47,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 import org.tensorflow.demo.OverlayView.DrawCallback;
 import org.tensorflow.demo.env.BorderedText;
 import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;
-import org.tensorflow.demo.R;
 
 public class ClassifierActivity extends CameraActivity implements OnImageAvailableListener {
   private static final Logger LOGGER = new Logger();
@@ -122,7 +129,10 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
   private long lastProcessingTimeMs;
   private String outputString =
-          "neutral,anger,disgust,happiness,sadness,fear,suprise\n";
+          "anger,disgust,happiness,sadness,suprise,neutral\n";
+
+  private String outFileName = "";
+  private int mFileCnt = 0;
 
   @Override
   protected int getLayoutId() {
@@ -135,6 +145,13 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   }
 
   private static final float TEXT_SIZE_DIP = 10;
+
+  @Override
+  public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+    super.onCreate(savedInstanceState, persistentState);
+    Log.e("TW", "onCreate");
+
+  }
 
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
@@ -194,7 +211,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
   @Override
   public void onImageAvailable(final ImageReader reader) {
 
-    LOGGER.i("onImageAvailable");
+//    LOGGER.i("onImageAvailable");
     Image image = null;
 
     try {
@@ -262,7 +279,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
             requestRender();
             computing = false;
             makeCSVData(results);
-
           }
         });
 
@@ -274,8 +290,8 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
     for(int i=0;i<results.size();i++) {
       for (int j = 0; j < results.size(); j++) {
-        if (results.get(j).getId().equals("" + i)) {//anger
-          outputString = outputString + results.get(j).getConfidence();
+        if (results.get(j).getTitle().equals("" + i)) {//anger
+          outputString = outputString + results.get(j).getTitle() + "_" + results.get(j).getConfidence();
           break;
         }
       }
@@ -286,6 +302,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
       }
     }
 
+    mFileCnt += 1;
     Log.e("TW", "output : "+outputString);
   }
 
@@ -327,6 +344,7 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
     }
   }
 
+
   @Override
   public synchronized void onDestroy() {
     super.onDestroy();
@@ -361,4 +379,73 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
       Log.e("ReadWriteFile", "Unable to write to the TestFile.txt file.");
     }
   }
+
+  public void showDialog(Context context, String title, String[] btnText,
+                         DialogInterface.OnClickListener listener) {
+
+    final CharSequence[] items = { "Clock", "Gallery", "SNS", "MobileOffice", "Game", "Etc" };
+
+    if (listener == null)
+      listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface paramDialogInterface,
+                            int paramInt) {
+          paramDialogInterface.dismiss();
+        }
+      };
+    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    builder.setTitle(title);
+
+    builder.setSingleChoiceItems(items, -1,
+            new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int item) {
+                Log.e("TW", "item : "+item);
+                Calendar cal = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("YY-MM-dd-HH:mm:ss");
+                String test = sdf.format(cal.getTime());
+
+                outFileName = items[item].toString() + "_" + test + "_fileCnt_" + mFileCnt;
+                Log.e("TW", "outFileName : "+outFileName);
+              }
+            });
+    builder.setPositiveButton(btnText[0], listener);
+    if (btnText.length != 1) {
+      builder.setNegativeButton(btnText[1], listener);
+    }
+    builder.show();
+  }
+
+  boolean doubleBackToExitPressedOnce = false;
+  @Override
+  public void onBackPressed() {
+    if (doubleBackToExitPressedOnce) {
+      super.onBackPressed();
+      return;
+    }
+
+    showDialog(this, "Your Title", new String[] { "Ok" },
+            new DialogInterface.OnClickListener() {
+
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                if(which==-1)
+                  Log.d("Neha", "On button click : " + which);
+              }
+            });
+
+
+    this.doubleBackToExitPressedOnce = true;
+    Toast.makeText(this, "Please click BACK again to exit. " + outFileName + "will be saved", Toast.LENGTH_SHORT).show();
+
+    new Handler().postDelayed(new Runnable() {
+
+      @Override
+      public void run() {
+        doubleBackToExitPressedOnce=false;
+      }
+    }, 1000);
+  }
+
+
+
 }
